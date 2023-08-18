@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import UploadButton from "./UploadButton";
 
 const FormInput = () => {
@@ -8,6 +8,10 @@ const FormInput = () => {
 
   const handleChange = (e: any) => {
     setContent(e.target.value);
+  };
+
+  const handleReset = () => {
+    setContent("");
   }
 
   return (
@@ -35,11 +39,16 @@ const FormInput = () => {
           >
             Summarize
           </button>
-        
 
           <UploadButton setContent={setContent} />
-      
-          <button type="button" className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Reset</button>
+
+          <button
+            type="button"
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
         </div>
       </div>
     </>
