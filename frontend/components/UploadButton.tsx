@@ -2,7 +2,7 @@
 
 import React, { FC, useState, useRef } from "react";
 
-const UploadButton: FC = () => {
+const UploadButton: FC<{setContent: (arg: string) => void}> = ({setContent}) => {
   const [fileContent, setFileContent] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -17,6 +17,7 @@ const UploadButton: FC = () => {
       reader.onload = (e) => {
         const content = e.target?.result as string;
         setFileContent(content);
+        setContent(content);
       };
       reader.readAsText(file);
     }
