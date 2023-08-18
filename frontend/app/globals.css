@@ -2,3 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(4rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-4rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 1s forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 1s forwards;
+}
+
+@keyframes typewriter {
+  0%,
+  100% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+}
+
+@keyframes blinkTextCursor {
+  0%,
+  100% {
+    border-right-color: rgba(0, 0, 0, 0.75);
+  }
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+.typewriter-effect {
+  overflow: hidden;
+  border-right: 0.15em solid rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typewriter 7s steps(40, end) infinite,
+    blinkTextCursor 1.5s step-end infinite;
+}
