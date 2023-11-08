@@ -19,13 +19,13 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
-    "https://text-summarization-psi.vercel.app",
+    "https://text-summarization-psi.vercel.app/",
     # You can add more origins as needed, or use "*" to allow all origins
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
