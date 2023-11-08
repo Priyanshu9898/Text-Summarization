@@ -2,9 +2,12 @@
 
 import React, { useState } from "react";
 import UploadButton from "./UploadButton";
+import toast from "react-hot-toast";
 
 const FormInput = () => {
   const [content, setContent] = useState<string>("");
+
+  const [summary, setSummary] = useState<string>("");
 
   const handleChange = (e: any) => {
     setContent(e.target.value);
@@ -12,7 +15,38 @@ const FormInput = () => {
 
   const handleReset = () => {
     setContent("");
-  }
+    setSummary("");
+  };
+
+  const summarizeText = async (e: any) => {
+    e.preventDefault();
+
+    const inputData = {
+      text: content,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+
+      if (!response.ok) {
+        toast.error("Error Occured!");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const summary = await response.json();
+      console.log(summary.summary);
+      setSummary(summary.summary);
+      toast.success("Text summarized successfully!");
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      toast.error("Error Occured!");
+    }
+  };
 
   return (
     <>
@@ -35,6 +69,7 @@ const FormInput = () => {
         <div className="mt-6 flex  items-center justify-start">
           <button
             type="button"
+            onClick={summarizeText}
             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           >
             Summarize
@@ -50,6 +85,18 @@ const FormInput = () => {
             Reset
           </button>
         </div>
+
+        {summary && (
+          <div>
+            <label
+              className="block mb-2 text-lg font-medium text-gray-900 dark:text-white"
+              htmlFor="input"
+            >
+              Summary
+            </label>
+            <p>{summary}</p>
+          </div>
+        )}
       </div>
     </>
   );
